@@ -1,0 +1,141 @@
+   PROPIEDADES DE CONGRUENCIA
+   
+   A≡B(m) -> A-B(M)
+   
+   A≡B(m) ->
+   C≡D(m) -> A+C≡B+D(m)  <->  A-C≡B-D(m) <-> A*C≡B*D(m)
+   
+   Si A≡B(m) para ∀D se cumple que A+D≡B+D(m) <-> A*D≡B*D(m)
+   ---------------------------------------------------------------------------------------
+    EXPONENCIACIÓN MODULAR
+    
+    El residuo se puede calcular ->     R = X^N(m)
+    de esta formula se puede deducir:   R+K*m = X^N 
+    
+                                                    Ej. numerico: 6 = 5^3(mod.7)
+                                                                  6 =125(mod.7)
+                                                                  6+7*K = 125
+   ---------------------------------------------------------------------------------------
+   CALCULO DEL MODULO EN FORMA EFICIENTE 
+    
+   Retomando el ejemplo anterior ->                             
+                                                                    R = X^N(m)  
+   se mejora la eficiencia formulandolo de esta forma:   
+                                             
+                                                         Si N es par   -> X^N = (X*X)^N/2
+                                                         
+                                                         Si N es impar -> X^N = X(X*X)^N/2
+   ----------------------------------------------------------------------------------------- 
+   FUNCION RECURSIVA
+   
+   Pseudocodigo
+   power(x, n, p) {
+
+si(n == 0) {
+
+retornar 1
+
+            }
+
+ tmp = power( (x*x) % p, n/2, p) 
+
+si(n%2 != 0) { 
+
+tmp = (tmp * x) % p 
+
+}
+
+ retornar tmp
+
+ }
+ 
+ ############################################Codigo en Python##########################################################################
+ 
+ def power(x, n, p):
+    if n == 0:
+        return 1
+    tmp = power((x*x) % p, n//2, p)
+    if n % 2 != 0:
+        tmp = (tmp * x) % p
+    return tmp
+    
+ ###########################################Ejecución##################################################################################
+                     power(3, 2, 4)
+    |
+    |-> n == 0? No
+    |-> tmp = power((3*3) % 4, 2/2, 4)
+    |       |
+    |       |-> power(1, 1, 4)
+    |       |   |
+    |       |   |-> n == 0? No
+    |       |   |-> tmp = power((1*1) % 4, 1/2, 4)
+    |       |   |   |
+    |       |   |   |-> power(1, 0, 4)
+    |       |   |   |   |
+    |       |   |   |   |-> n == 0? Sí
+    |       |   |   |   |-> retornar 1
+    |       |
+    |       |
+    |       |
+    |
+    |
+    |
+    |
+    |
+    |
+En esta representación visual, cada llamada recursiva a la función power se representa como una rama que se extiende hacia la derecha.
+Cada vez que se llama a la función power de manera recursiva, se crea una nueva rama que se extiende hacia la derecha. Cuando se alcanza
+el caso base y se retorna 1, la rama termina y se vuelve a subir por el árbol de llamadas recursivas hasta llegar a la llamada original a power(3, 2, 4).
+
+power(3, 2, 4)
+|-> n == 0? No
+|-> tmp = power((3*3) % 4, 2/2, 4)
+|   |-> power(1, 1, 4)
+|   |   |-> n == 0? No
+|   |   |-> tmp = power((1*1) % 4, 1/2, 4)
+|   |   |   |-> power(1, 0, 4)
+|   |   |   |   |-> n == 0? Sí
+|   |   |   |   |-> retornar 1
+|   |   |-> tmp = 1
+|   |   |-> n%2 != 0? Sí
+|   |   |-> tmp = (1 * 3) % 4
+|   |-> retornar tmp = 3
+|-> tmp = 3
+|-> n%2 != 0? No
+|-> retornar tmp = (3 * 3) % 4 = 1
+
+
+
+
+
+Mismo ejemplo pero en forma iterativa:
+
+def power(x, n, p):
+    result = 1
+    while n > 0:
+        if n % 2 != 0:
+            result = (result * x) % p
+        x = (x * x) % p
+        n = n // 2
+    return result
+    
+    
+En forma equematica:
+
+power(3, 2, 4)
+|-> result = 1
+|-> n > 0? Sí
+|   |-> n % 2 != 0? No
+|   |-> x = (3 * 3) % 4 = 1
+|   |-> n = 2 // 2 = 1
+|-> n > 0? Sí
+|   |-> n % 2 != 0? Sí
+|   |-> result = (1 * 3) % 4 = 3
+|   |-> x = (1 * 1) % 4 = 1
+|   |-> n = 1 // 2 = 0
+|-> n > 0? No
+|-> retornar result = (3 * 3) % p = (9) % p = (9) % (4) = (9 modulo 4) = (1)
+
+    
+
+   
