@@ -135,7 +135,121 @@ power(3, 2, 4)
 |   |-> n = 1 // 2 = 0
 |-> n > 0? No
 |-> retornar result = (3 * 3) % p = (9) % p = (9) % (4) = (9 modulo 4) = (1)
-
+--------------------------------------------------------------------------------------------------------------------------------------
     
+Maximo comun divisor
+ Es el valor que resulta de la multiplicación de los mayores factores primos entre dos numeros 
+ 
+ Ej. numerico: mcd(30,24)
+                             30 | 2          24 | 2
+                             15 | 3          12 | 2
+                              5 | 5           6 | 2
+                              1 |             3 | 3
+                                              1 | 
+                                              
+                                              
+ En este ejemplo los factores comunes serian 2 * 3 con resultado de mcd=6
+ 
+ Se dice que:    (A,B)≡mcd(A-B, B)
+ 
+ Lo que quiere decir es que si tengo un numero D que es divisor común de (A,B) con residuo 0,  tambien lo sera de (A-B, B).
+ Esta propiedad se puede demostrar con el algoritmo de Euclides....
+ 
+ mcd(30, 24)
+mcd(24, 30 % 24) = mcd(24, 6)
+mcd(6, 24 % 6) = mcd(6, 0)
+mcd(6, 0) = 6
+Esto no es eficiente por el gran numeros de restas que se deberia realizar en numeros grandes por lo tanto una forma mas eficiente seria:
+ Pseudocodigo
+ 
+ mcd(a,b) { 
 
+si (b == 0) {
+
+ retornar a 
+
+}
+
+ sino { 
+
+retornar mcd(b, a%b) 
+
+}
+
+ }
+ 
+ 
+---------------------------------------------------------------------- 
+ Forma esquematica 
+ 
+ mcd(30, 24)
+    |
+    +-- b != 0
+    |
+    +-- mcd(24, 30 % 24) = mcd(24, 6)
+            |
+            +-- b != 0
+            |
+            +-- mcd(6, 24 % 6) = mcd(6, 0)
+                    |
+                    +-- b == 0
+                    |
+                    +-- return a = 6
+ 
+ 
+####################################################################### Codigo en Python ######################################################################
+ def mcd(a, b):
+    if b == 0:
+        return a
+    else:
+        return mcd(b, a % b)
+ ---------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Inverso mutiplicativo
+ 
+ El inverso multiplicativo de A módulo N es un número X tal que cuando se multiplica A por X y se divide el resultado entre N, el residuo es igual a 1.
+ 
+                                                𝐴𝑋 ≡ 1 (mod 𝑁)
+ 
+ Si el mcd de A y N es igual a 1 es decir tienen que ser coprimos, entonces existe un único inverso multiplicativo de A módulo N en el rango 1 ≤ X < N.
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
    
